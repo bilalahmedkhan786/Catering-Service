@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fillColor: Colors.white70,
                     border: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                   ),
                 ),
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fillColor: Colors.white70,
                     border: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                   ),
                 ),

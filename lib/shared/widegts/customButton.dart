@@ -29,15 +29,15 @@ class MyButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(text),
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 140, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           textStyle: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
           foregroundColor: Colors.white,
         ),

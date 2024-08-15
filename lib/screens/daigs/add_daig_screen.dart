@@ -1,6 +1,9 @@
 import 'package:catering_service_manager/models/daig_model.dart';
+import 'package:catering_service_manager/screens/daigs/daig_list_screen.dart';
+import 'package:catering_service_manager/shared/widegts/customButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddDaigScreen extends StatefulWidget {
   @override
@@ -15,27 +18,59 @@ class _AddDaigScreenState extends State<AddDaigScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Daig'),
+        leading: IconButton(
+            onPressed: () {
+              Get.off(DaigListScreen());
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            )),
+        backgroundColor: const Color(0xFF53B175),
+        title: const Text(
+          'Add Daig',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Daig Name'),
-            ),
-            TextField(
-              controller: quantityController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Quantity'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: onAddDaig,
-              child: Text('Add Daig'),
-            ),
-          ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'Daig Name',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        style: BorderStyle.solid, color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: quantityController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Quantity',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        style: BorderStyle.solid, color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              MyButton(text: "Add Daig", onPressed: onAddDaig),
+            ],
+          ),
         ),
       ),
     );
@@ -58,6 +93,9 @@ class _AddDaigScreenState extends State<AddDaigScreen> {
   }
 
   void addDaig(Daig daig) async {
-    await FirebaseFirestore.instance.collection('daigs').doc(daig.id).set(daig.toMap());
+    await FirebaseFirestore.instance
+        .collection('daigs')
+        .doc(daig.id)
+        .set(daig.toMap());
   }
 }

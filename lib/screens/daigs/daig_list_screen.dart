@@ -9,53 +9,82 @@ class DaigListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daig Inventory Management'),
+        leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            )),
+        backgroundColor: const Color(0xFF53B175),
+        title: const Text(
+          'Daig Inventory Management',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('daigs').snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('daigs').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData)
+              return const Center(child: CircularProgressIndicator());
 
-          List<Daig> daigList = snapshot.data!.docs
-              .map((doc) => Daig.fromMap(doc.data() as Map<String, dynamic>))
-              .toList();
+            List<Daig> daigList = snapshot.data!.docs
+                .map((doc) => Daig.fromMap(doc.data() as Map<String, dynamic>))
+                .toList();
 
-          return ListView.builder(
-            itemCount: daigList.length,
-            itemBuilder: (context, index) {
-              Daig daig = daigList[index];
-              return ListTile(
-                title: Text(daig.name),
-                subtitle:
-                    Text('Quantity: ${daig.quantity} | Status: ${daig.status}'),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UpdateDaigScreen(daig: daig),
-                          ),
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => deleteDaig(daig.id),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+            return ListView.builder(
+              itemCount: daigList.length,
+              itemBuilder: (context, index) {
+                Daig daig = daigList[index];
+                return ListTile(
+                  title: Text(daig.name),
+                  subtitle: Text(
+                      'Quantity: ${daig.quantity} | Status: ${daig.status}'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.lightGreen,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  UpdateDaigScreen(daig: daig),
+                            ),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () => deleteDaig(daig.id),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: const Color(0xFF53B175),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
           Navigator.push(
             context,
