@@ -3,6 +3,7 @@ import 'package:catering_service_manager/screens/daigs/add_daig_screen.dart';
 import 'package:catering_service_manager/screens/daigs/update_daig_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DaigListScreen extends StatelessWidget {
   @override
@@ -45,7 +46,8 @@ class DaigListScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(daig.name),
                   subtitle: Text(
-                      'Quantity: ${daig.quantity} | Status: ${daig.status}'),
+                    'Quantity: ${daig.quantity} | Status: ${daig.status}\nAllocated To: ${daig.allocatedTo} | Date: ${DateFormat('yyyy-MM-dd').format(daig.dateAllocated)}',
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

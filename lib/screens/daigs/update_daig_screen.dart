@@ -19,6 +19,15 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
   late TextEditingController nameController;
   late TextEditingController quantityController;
   late String status;
+  late String allocatedTo;
+
+  final List<String> statusOptions = ['Pending', 'In Progress', 'Completed'];
+  final List<String> allocatedOptions = [
+    'Unassigned',
+    'Chef',
+    'Helper',
+    'Manager'
+  ];
 
   @override
   void initState() {
@@ -27,6 +36,7 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
     quantityController =
         TextEditingController(text: widget.daig.quantity.toString());
     status = widget.daig.status;
+    allocatedTo = widget.daig.allocatedTo;
   }
 
   @override
@@ -78,19 +88,36 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
                   border: UnderlineInputBorder(
                     borderSide: const BorderSide(
                         style: BorderStyle.solid, color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               DropdownButton<String>(
-                value: status,
+                value: statusOptions.contains(status) ? status : null,
                 onChanged: (newValue) {
                   setState(() {
                     status = newValue!;
                   });
                 },
-                items: ['Pending', 'In Progress', 'Completed']
+                items:
+                    statusOptions.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 30),
+              DropdownButton<String>(
+                value:
+                    allocatedOptions.contains(allocatedTo) ? allocatedTo : null,
+                onChanged: (newValue) {
+                  setState(() {
+                    allocatedTo = newValue!;
+                  });
+                },
+                items: allocatedOptions
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -113,6 +140,8 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
       name: nameController.text,
       quantity: int.parse(quantityController.text),
       status: status,
+      allocatedTo: allocatedTo,
+      dateAllocated: DateTime.now(),
     );
 
     updateDaig(updatedDaig);

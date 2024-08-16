@@ -13,6 +13,7 @@ class AddDaigScreen extends StatefulWidget {
 class _AddDaigScreenState extends State<AddDaigScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  String allocatedTo = 'Unassigned';
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _AddDaigScreenState extends State<AddDaigScreen> {
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(
                         style: BorderStyle.solid, color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
               ),
@@ -63,9 +64,24 @@ class _AddDaigScreenState extends State<AddDaigScreen> {
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(
                         style: BorderStyle.solid, color: Colors.black),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
+              ),
+              DropdownButton<String>(
+                value: allocatedTo,
+                onChanged: (newValue) {
+                  setState(() {
+                    allocatedTo = newValue!;
+                  });
+                },
+                items: ['Unassigned', 'Chef', 'Helper', 'Manager']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
               SizedBox(height: 30),
               MyButton(text: "Add Daig", onPressed: onAddDaig),
@@ -86,6 +102,8 @@ class _AddDaigScreenState extends State<AddDaigScreen> {
       name: name,
       quantity: quantity,
       status: 'Pending',
+      allocatedTo: allocatedTo,
+      dateAllocated: DateTime.now(),
     );
 
     addDaig(newDaig);
