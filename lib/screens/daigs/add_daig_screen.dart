@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddDaigScreen extends StatefulWidget {
+class AddDiagScreen extends StatefulWidget {
   @override
-  _AddDaigScreenState createState() => _AddDaigScreenState();
+  _AddDiagScreenState createState() => _AddDiagScreenState();
 }
 
-class _AddDaigScreenState extends State<AddDaigScreen> {
+class _AddDiagScreenState extends State<AddDiagScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
   String allocatedTo = 'Unassigned';

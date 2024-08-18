@@ -1,6 +1,7 @@
 import 'package:catering_service_manager/models/daig_model.dart';
 import 'package:catering_service_manager/screens/daigs/daig_list_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -126,7 +127,13 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
                 }).toList(),
               ),
               const SizedBox(height: 30),
-              MyButton(text: "Update Daig", onPressed: onUpdateDaig),
+              MyButton(
+                  text: "Update Daig",
+                  onPressed: () {
+                    onUpdateDaig();
+                     FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+                  }),
             ],
           ),
         ),

@@ -1,26 +1,44 @@
+import 'package:catering_service_manager/cores/auth/firebase_auth.dart';
 import 'package:catering_service_manager/models/daig_model.dart';
 import 'package:catering_service_manager/screens/daigs/add_daig_screen.dart';
 import 'package:catering_service_manager/screens/daigs/update_daig_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DaigListScreen extends StatelessWidget {
+class DaigListScreen extends StatefulWidget {
+  @override
+  State<DaigListScreen> createState() => _DaigListScreenState();
+}
+
+class _DaigListScreenState extends State<DaigListScreen> {
+  Auth myauth = Auth();
+
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-            )),
         backgroundColor: const Color(0xFF53B175),
-        title: const Text(
-          'Daig Inventory Management',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        title: const Center(
+          child: Text(
+            'Daig Management',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                myauth.signOut();
+                Get.snackbar('Success', 'Logout successfully!',
+                    backgroundColor: Colors.green, colorText: Colors.white);
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -90,7 +108,7 @@ class DaigListScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddDaigScreen()),
+            MaterialPageRoute(builder: (context) => AddDiagScreen()),
           );
         },
       ),

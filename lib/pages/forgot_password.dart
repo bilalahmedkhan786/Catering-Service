@@ -1,19 +1,17 @@
-import 'package:catering_service_manager/pages/forgot_password.dart';
-import 'package:catering_service_manager/pages/register.dart';
+import 'package:catering_service_manager/pages/login.dart';
 import 'package:catering_service_manager/shared/widegts/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../cores/auth/firebase_auth.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   Auth myauth = Auth();
@@ -36,14 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 60),
                 SizedBox(
                     height: 150, child: Image.asset('assets/catering.png')),
-                const SizedBox(height: 30),
+                const SizedBox(height: 50),
                 const Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Login",
+                          "Forget Password",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 24,
@@ -52,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "Enter your email and password",
+                          "Enter your email for recovery",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -62,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -76,38 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    suffixIcon: Icon(Icons.visibility_off_outlined),
-                    labelText: "Password",
-                    filled: true,
-                    fillColor: Colors.white70,
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const ForgotPassword());
-                      },
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
                 MyButton(
-                  text: "Login",
+                  text: "Forget",
                   onPressed: () async {
                     await myauth.signIn(
                         _emailController.text, _passwordController.text);
@@ -120,14 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have an account?",
+                      "Already have an account?",
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(width: 5),
                     GestureDetector(
-                      onTap: () => Get.to(const RegisterScreen()),
+                      onTap: () => Get.to(const LoginScreen()),
                       child: const Text(
-                        "Sign Up",
+                        "Login",
                         style: TextStyle(
                           color: Color(0xFF53B175),
                         ),

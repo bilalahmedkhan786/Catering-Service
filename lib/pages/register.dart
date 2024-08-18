@@ -138,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     _passwordController.clear();
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -151,7 +151,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onTap: () => Get.back(),
                       child: const Text(
                         "Login",
-                        style: TextStyle(color: Color(0xFF53B175)),
+                        style: TextStyle(
+                          color: Color(0xFF53B175),
+                        ),
                       ),
                     ),
                   ],

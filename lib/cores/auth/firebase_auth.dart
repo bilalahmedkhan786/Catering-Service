@@ -1,3 +1,4 @@
+import 'package:catering_service_manager/pages/login.dart';
 import 'package:catering_service_manager/screens/daigs/daig_list_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,5 +36,13 @@ class Auth {
   // Sign Out
   Future<void> signOut() async {
     await _auth.signOut();
+    Get.offAll(const LoginScreen());
+  }
+
+  //Forget Password
+  Future<void> forgetPassword(String myemail) async {
+    _auth.sendPasswordResetEmail(email: myemail);
+    Get.snackbar('Forget Password', 'Email Sent Successfully!',
+        backgroundColor: Colors.green, colorText: Colors.white);
   }
 }
