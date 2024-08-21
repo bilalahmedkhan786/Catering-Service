@@ -1,7 +1,7 @@
+import 'package:catering_service_manager/cores/services/notification_service.dart';
 import 'package:catering_service_manager/models/daig_model.dart';
 import 'package:catering_service_manager/screens/daigs/daig_list_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +21,10 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
   late TextEditingController quantityController;
   late String status;
   late String allocatedTo;
+
+  // final DaigController daigController = Get.put(DaigController());
+  final NotificationServices notificationService =
+      Get.put(NotificationServices());
 
   final List<String> statusOptions = ['Pending', 'In Progress', 'Completed'];
   final List<String> allocatedOptions = [
@@ -45,13 +49,11 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Get.off(DaigListScreen());
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-            )),
+          onPressed: () {
+            Get.off(DaigListScreen());
+          },
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF53B175),
         title: const Text(
           'Update Daig',
@@ -128,12 +130,11 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
               ),
               const SizedBox(height: 30),
               MyButton(
-                  text: "Update Daig",
-                  onPressed: () {
-                    onUpdateDaig();
-                     FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-                  }),
+                text: "Update Daig",
+                onPressed: () {
+                  onUpdateDaig();
+                },
+              ),
             ],
           ),
         ),
@@ -160,5 +161,10 @@ class _UpdateDaigScreenState extends State<UpdateDaigScreen> {
         .collection('daigs')
         .doc(updatedDaig.id)
         .update(updatedDaig.toMap());
+
+    // Send a notification if the status has changed
+    // if (updatedDaig.status != widget.daig.status) {
+    //   notificationService.sendStatusNotification(updatedDaig.status, updatedDaig.allocatedTo);
+    // }
   }
 }

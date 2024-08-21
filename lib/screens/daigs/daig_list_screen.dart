@@ -1,4 +1,5 @@
 import 'package:catering_service_manager/cores/auth/firebase_auth.dart';
+import 'package:catering_service_manager/cores/services/notification_service.dart';
 import 'package:catering_service_manager/models/daig_model.dart';
 import 'package:catering_service_manager/screens/daigs/add_daig_screen.dart';
 import 'package:catering_service_manager/screens/daigs/update_daig_screen.dart';
@@ -14,8 +15,22 @@ class DaigListScreen extends StatefulWidget {
 
 class _DaigListScreenState extends State<DaigListScreen> {
   Auth myauth = Auth();
+  NotificationServices notificationServices = NotificationServices();
 
- 
+  @override
+  void initState() {
+    // TODO: implement initState
+    notificationServices.requestNotificationPermission();
+    notificationServices.firebaseInit();
+    notificationServices.getDeviceToken().then(
+      (value) {
+        print('device token');
+        print(value);
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

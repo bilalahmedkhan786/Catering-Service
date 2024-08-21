@@ -2,6 +2,7 @@ import 'package:catering_service_manager/pages/login.dart';
 import 'package:catering_service_manager/shared/widegts/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../cores/auth/firebase_auth.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -13,7 +14,6 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   Auth myauth = Auth();
 
   @override
@@ -77,10 +77,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 MyButton(
                   text: "Forget",
                   onPressed: () async {
-                    await myauth.signIn(
-                        _emailController.text, _passwordController.text);
-                    _emailController.clear();
-                    _passwordController.clear();
+                    if (_emailController.text.isEmpty) {
+                      Get.snackbar(
+                        'Error',
+                        'Please enter your email.',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                    } else {
+                      await myauth
+                          .sendPasswordResetEmail(_emailController.text);
+                      _emailController.clear();
+                    }
                   },
                 ),
                 const SizedBox(height: 30),

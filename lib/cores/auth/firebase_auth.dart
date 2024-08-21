@@ -40,9 +40,24 @@ class Auth {
   }
 
   //Forget Password
-  Future<void> forgetPassword(String myemail) async {
-    _auth.sendPasswordResetEmail(email: myemail);
-    Get.snackbar('Forget Password', 'Email Sent Successfully!',
-        backgroundColor: Colors.green, colorText: Colors.white);
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      Get.snackbar(
+        'Password Reset',
+        'Password reset email sent. Check your inbox.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 }
