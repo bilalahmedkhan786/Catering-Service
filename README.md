@@ -7,7 +7,7 @@ The Catering Service Manager is a web/mobile application designed for managing D
 
 Admin Registration and Authentication: Register and log in with email and password.
 Daig Inventory Management: Add, update, and delete Daigs from the inventory.
-Daig Allocation and Status Tracking: Assign Daigs to tasks, track their status (e.g., in use, idle).
+Daig Allocation and Status Tracking: Assign Daigs to tasks, track their status (e.g., in progress, completed).
 Basic Notifications: Receive alerts for Daig status changes and unavailability.
 Installation
 To run the project locally, follow these steps:
