@@ -21,7 +21,7 @@ class _DaigListScreenState extends State<DaigListScreen> {
   void initState() {
     // TODO: implement initState
     notificationServices.requestNotificationPermission();
-    notificationServices.firebaseInit();
+    notificationServices.firebaseInit(context);
     notificationServices.getDeviceToken().then(
       (value) {
         print('device token');
